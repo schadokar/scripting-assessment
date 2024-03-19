@@ -1,3 +1,11 @@
-FROM node:latest
-# Feel free to entirely re-write this dockerfile to make it work.
-CMD ["/bin/sh","-c","while true; echo 'your probe should be running here'; do sleep 1; done" ]
+FROM golang:1.21
+
+WORKDIR /
+
+COPY ./gosoln/. /
+
+RUN go mod download
+
+RUN go build -o exc .
+
+CMD [ "/exc" ]
